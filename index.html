@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+
+  <title>CGI-Website</title>
+</head>
+
+<body>
+  <script>window.addEventListener('load', (event) => {
+      const input = document.getElementById('inputUsername');
+      const log = document.getElementById('username');
+
+      input.addEventListener('input', updateValue);
+
+      function updateValue(e) {
+        cookie = e.target.value.replace(/\s/g, '');
+        log.textContent = cookie
+        document.cookie = `username = ${cookie}`
+      }
+    })
+    fetch('./info.json').then(response => {
+      return response.json();
+    }).then(data => {
+      var table = document.getElementById('table')
+
+
+      data.posts.forEach(element => {
+        var tr = document.createElement("tr")
+        var tekst = document.createElement("td")
+        var datum = document.createElement("td")
+        tekst.innerText = element.tekst
+        datum.innerText = element.datum
+        tr.append(tekst)
+        tr.append(datum)
+        table.append(tr)
+      });
+      console.log(data.posts);
+
+
+    }).catch(err => {
+      window.alert("ohow waar is je bestand naar toe")
+    });
+  </script>
+
+  <main class="container">
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+      <div class="col-md-6 px-0">
+        <h1 class="display-4 fst-italic">CGI Website</h1>
+        <p class="lead my-3">De data uit een JSON file word ingelezen en en weergegeven op deze website. Voeg zelf data
+          toe onderaan deze pagina</p>
+      </div>
+    </div>
+
+    <table id="table" class="table my-5">
+      <tr>
+        <th>info</th>
+        <th>datum</th>
+      </tr>
+    </table>
+    <div class="mt-5">
+      <p id="username">Voer uw usernaam in (niet verplicht)</p>
+      <input placeholder="voer uw usernaam in" id="inputUsername" name="name" />
+      <FORM ACTION="/cgi-bin/HELLOWORLD" METHOD="POST">
+        <DIV>Your input (80 chars max.):<BR>
+          <INPUT NAME="data" SIZE="60" placeholder="info"MAXLENGTH="80"><BR>
+          <INPUT TYPE="SUBMIT" class="btn btn-dark mt-3" VALUE="Send">
+        </DIV>
+      </FORM>
+    </div>
+  </main>
+</body>
+
+</html>

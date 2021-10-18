@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/HELLOWORLD.dir/cgi-helloworld.c.o  -o HELLOWORLD 

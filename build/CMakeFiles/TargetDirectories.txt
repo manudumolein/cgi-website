@@ -1,0 +1,3 @@
+/var/www/html/build/CMakeFiles/rebuild_cache.dir
+/var/www/html/build/CMakeFiles/HELLOWORLD.dir
+/var/www/html/build/CMakeFiles/edit_cache.dir
