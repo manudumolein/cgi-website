@@ -45,7 +45,8 @@ void unencode(char *src, char *last, char *dest)
 
 int main(void)
 {
-  char *url = "/var/www/html/info.json";
+  char url[30];
+  sprintf(url,"%s","/var/www/html/info.json");
   time_t current_time;
   FILE *f;
   struct tm *local_time;
@@ -55,7 +56,7 @@ int main(void)
   char input[MAXINPUT], data[MAXINPUT];
   long len;
   print_http_header("text/html");
- content_post = getenv("CONTENT_LENGTH");
+  content_post = getenv("CONTENT_LENGTH");
   cookies = getenv("HTTP_COOKIE");
  
   if (cookies != NULL)
@@ -63,16 +64,14 @@ int main(void)
     char buff[30];
     sprintf(url, "/var/www/html/%s.json", &cookies[9]);
     f = fopen(url, "r+");
-
     if (f == NULL)
     {
       f = fopen(url, "w");
-      fputs("{\"posts\": [{}]", f);
+      fputs("{\"posts\": []]}", f);
     }
-
     fclose(f);
-    printf("%s", buff);
   };
+  
   if (content_post == NULL || sscanf(content_post, "%ld", &len) != 1 || len > MAXLEN)
     printf("<P>Error in invocation - wrong FORM probably.");
   else
@@ -97,7 +96,7 @@ int main(void)
       sprintf(str, ",{\"tekst\": \"%s\" , \"datum\": \"%s\"}]}", data, datum);
       fputs(str, f);
       fclose(f);
-      printf("<script>window.location.href = \"http://rpi-manud.local/\";</script>");
+     printf("<script>window.location.href = \"http://rpi-manud.local/\";</script>");
     }
   }
   return 0;
