@@ -61,7 +61,6 @@ int main(void)
  
   if (cookies != NULL)
   {
-    char buff[30];
     sprintf(url, "/var/www/html/%s.json", &cookies[9]);
     f = fopen(url, "r+");
     if (f == NULL)
